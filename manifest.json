@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "Toggle Referrer",
+  "version": "1.0.0",
+
+  "description": "__MSG_extensionDescription__",
+
+  "applications": {
+    "gecko": {
+      "id": "{8883111b-4bc8-4a99-b37f-5672f6cf9597}",
+      "strict_min_version": "56.0"
+    }
+  },
+
+  "icons": {
+    "24": "icons/togglereferrer.svg",
+    "32": "icons/togglereferrer.svg",
+    "50": "icons/togglereferrer.svg"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/togglereferrer.svg",
+    "theme_icons": [{
+      "dark": "icons/togglereferrer.svg",
+      "light": "icons/togglereferrer-light.svg",
+      "size": 19
+    }]
+  },
+
+  "permissions": [
+    "privacy"
+  ],
+
+  "default_locale": "en"
+}

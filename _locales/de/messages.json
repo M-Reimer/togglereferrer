@@ -1,0 +1,15 @@
+{
+  "extensionDescription": {
+    "message": "Deaktiviert, bzw. aktiviert das Senden des Referrers",
+    "description": "Description of the extension."
+  },
+
+  "tooltip_enabled": {
+    "message": "Referrer ist aktiviert!",
+    "description": "Tooltip displayed on the toolbar button if referrer is ON."
+  },
+  "tooltip_disabled": {
+    "message": "Referrer ist aus",
+    "description": "Tooltip displayed on the toolbar button if referrer is OFF."
+  }
+}
