@@ -12,7 +12,7 @@ togglereferrer-trunk.xpi: $(FILES) icons/togglereferrer-light.svg
 	@zip -9 - $^ > $@
 
 icons/togglereferrer-light.svg: icons/togglereferrer.svg
-	@sed 's/:#4c4c4c/:#ffffff/g' $^ > $@
+	@sed 's/:#0c0c0d/:#f9f9fa/g' $^ > $@
 
 clean:
 	rm -f togglereferrer-trunk.xpi
