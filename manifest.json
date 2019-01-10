@@ -5,7 +5,7 @@
 
   "description": "__MSG_extensionDescription__",
 
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "{8883111b-4bc8-4a99-b37f-5672f6cf9597}",
       "strict_min_version": "56.0"

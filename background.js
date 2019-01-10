@@ -1,6 +1,6 @@
 /*
     Firefox addon "Toggle Referrer"
-    Copyright (C) 2017  Manuel Reimer <manuel.reimer@gmx.de>
+    Copyright (C) 2019  Manuel Reimer <manuel.reimer@gmx.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,20 +26,23 @@ async function ToolbarButtonClicked() {
 
 // Sets browserAction badge text based on referrer status.
 async function UpdateBadge() {
-  let value = (await browser.privacy.websites.referrersEnabled.get({})).value;
-  if (value) {
-    browser.browserAction.setBadgeText({text: "!"});
-    browser.browserAction.setTitle({title: browser.i18n.getMessage("tooltip_enabled")});
-  }
-  else {
-    browser.browserAction.setBadgeText({text: ""});
-    browser.browserAction.setTitle({title: browser.i18n.getMessage("tooltip_disabled")});
-  }
+  const value = (await browser.privacy.websites.referrersEnabled.get({})).value;
+  const badgetext = value ? "!" : "";
+  const title = "Toggle Referrer (" +
+      browser.i18n.getMessage(value ? "title_enabled" : "title_disabled") +
+      ")";
+
+  if (browser.browserAction.setBadgeText !== undefined) // Not Android
+    browser.browserAction.setBadgeText({text: badgetext});
+  browser.browserAction.setTitle({title: title});
 }
 
-// Get sure our badge background is red.
-browser.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
+  // Get sure our badge background is red.
+if (browser.browserAction.setBadgeBackgroundColor !== undefined) // Not Android
+  browser.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
 
 // Register event listeners
 browser.browserAction.onClicked.addListener(ToolbarButtonClicked);
+
+// Update badge for the first time
 UpdateBadge();

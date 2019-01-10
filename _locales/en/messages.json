@@ -4,12 +4,12 @@
     "description": "Description of the extension."
   },
 
-  "tooltip_enabled": {
-    "message": "Referrer is enabled!",
-    "description": "Tooltip displayed on the toolbar button if referrer is ON."
+  "title_enabled": {
+    "message": "enabled!",
+    "description": "Text displayed in the title if referrer is ON."
   },
-  "tooltip_disabled": {
-    "message": "Referrer is off",
-    "description": "Tooltip displayed on the toolbar button if referrer is OFF."
+  "title_disabled": {
+    "message": "off",
+    "description": "Text displayed in the title if referrer is OFF."
   }
 }
