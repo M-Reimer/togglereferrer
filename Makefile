@@ -5,6 +5,9 @@
 
 FILES = manifest.json \
         background.js \
+        spoofing.js \
+        options.html \
+        options.js \
         $(wildcard _locales/*/messages.json) \
         $(wildcard icons/*.svg)
 

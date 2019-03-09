@@ -19,7 +19,7 @@
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js", "spoofing.js"]
   },
 
   "browser_action": {
@@ -32,8 +32,20 @@
     }]
   },
 
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true,
+    "open_in_tab": false
+  },
+
   "permissions": [
     "privacy"
+  ],
+
+  "optional_permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
   ],
 
   "default_locale": "en"

@@ -19,7 +19,7 @@
 // Fired if the toolbar button is clicked.
 // Toggles the referrer setting.
 async function ToolbarButtonClicked() {
-  let value = (await browser.privacy.websites.referrersEnabled.get({})).value;
+  const value = (await browser.privacy.websites.referrersEnabled.get({})).value;
   await browser.privacy.websites.referrersEnabled.set({value: !value});
   await UpdateBadge();
 }
@@ -35,6 +35,8 @@ async function UpdateBadge() {
   if (browser.browserAction.setBadgeText !== undefined) // Not Android
     browser.browserAction.setBadgeText({text: badgetext});
   browser.browserAction.setTitle({title: title});
+
+  UpdateSpoofStatus();
 }
 
   // Get sure our badge background is red.
