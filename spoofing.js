@@ -27,10 +27,25 @@ function CreateSpoofedReferrer(URL) {
 // More properties: https://developer.mozilla.org/en-US/docs/Web/API/URL
 
   switch (URL.host) {
-    // The mobile version of the aliexpress website always forwards to a
-    // Captcha if no Referrer is sent.
+    // The mobile version of the aliexpress doesn't find any articles if
+    // no referrer is sent.
     case "m.aliexpress.com":
-      return "https://m.aliexpress.com/";
+    case "m.de.aliexpress.com":
+    case "m.ru.aliexpress.com":
+    case "m.pt.aliexpress.com":
+    case "m.es.aliexpress.com":
+    case "m.id.aliexpress.com":
+    case "m.it.aliexpress.com":
+    case "m.fr.aliexpress.com":
+    case "m.nl.aliexpress.com":
+    case "m.tr.aliexpress.com":
+    case "m.ja.aliexpress.com":
+    case "m.th.aliexpress.com":
+    case "m.ko.aliexpress.com":
+    case "m.vi.aliexpress.com":
+    case "m.pl.aliexpress.com":
+    case "m.ar.aliexpress.com":
+      return "https://" + URL.host + "/";
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113998.html
     case "a.tile.openstreetmap.org":
