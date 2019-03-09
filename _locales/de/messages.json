@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Deaktiviert, bzw. aktiviert das Senden des Referrers",
+    "message": "Deaktiviert, bzw. aktiviert das Senden des Referrers. Eine optionale Referrer-Spoofing-Funktion sendet manipulierte Referrer an problematische Server.",
     "description": "Description of the extension."
   },
 

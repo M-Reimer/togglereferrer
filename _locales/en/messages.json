@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Disables or enables sending of the referrer.",
+    "message": "Disables or enables sending of the referrer. An optional spoofing feature sends spoofed referrers to problematic servers.",
     "description": "Description of the extension."
   },
 
