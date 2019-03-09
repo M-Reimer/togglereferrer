@@ -7,10 +7,10 @@
     <form>
       <input type="checkbox" id="spoofing_checkbox"/>
       <label for="spoofing_checkbox" id="spoofing_label">Optional referrer spoofing feature</label>
-      <p>
-        The optional referrer spoofing feature sends a spoofed referrer to some problematic servers in case you disabled referrer sending. Spoofing is only enabled if you disable sending the referrer (no red flag next to toolbar button).
+      <p id="spoofing_info">
+        The optional referrer spoofing feature sends a spoofed referrer to <a href="https://github.com/M-Reimer/togglereferrer/blob/master/spoofing.js#L19">some problematic servers</a> in case you disabled referrer sending. Spoofing is only enabled if you disable sending the referrer (no red flag next to toolbar button).
       </p>
-      <p>If you opt in to this feature, then additional permissions are requested by Firefox to allow us to modify the referrer header.
+      <p id="permissions_info">If you opt in to this feature, then additional permissions are requested by Firefox to allow us to modify the referrer header.
       </p>
     </form>
     <script src="options.js"></script>

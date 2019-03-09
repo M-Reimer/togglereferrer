@@ -21,19 +21,18 @@ async function checkSpoofingChanged(e) {
 }
 
 function init() {
-    /*
+  // Text only translation
   [
-    "contextmenus_headline",
-    "menuitem_number_label",
-    "onlycurrent_label",
-    "menus_headline",
-    "menu_tab_label",
-    "menu_page_label",
-    "menuitem_page_label"
+    "spoofing_label",
+    "permissions_info"
   ].forEach((id) => {
     document.querySelector("#" + id).textContent = browser.i18n.getMessage(id);
   });
-    */
+
+  // Spoofing info contains HTML
+  let spoofing_info = browser.i18n.getMessage("spoofing_info");
+  spoofing_info = spoofing_info.replace("<a>", "<a href=\"https://github.com/M-Reimer/togglereferrer/blob/master/spoofing.js#L19\">");
+  document.getElementById("spoofing_info").innerHTML = spoofing_info;
 
   loadOptions();
   checkSpoofing.addEventListener("change", checkSpoofingChanged);

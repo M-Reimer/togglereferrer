@@ -11,5 +11,18 @@
   "title_disabled": {
     "message": "aus",
     "description": "Text displayed in the title if referrer is OFF."
+  },
+
+  "spoofing_label": {
+    "message": "Optionale Referrer-Spoofing Funktion",
+    "description": "Label for the spoofing toggle in the options page"
+  },
+  "spoofing_info": {
+    "message": "Die optionale Referrer-Spoofing Funktion sendet einen manipulierten Referrer an <a>einige problematische Server</a> wenn das Senden des Referrers deaktiviert ist (keine rote Markierung am Toolbar-Button).",
+    "description": "Information text about spoofing feature"
+  },
+  "permissions_info": {
+    "message": "Wenn diese Funktion aktiviert wird, dann fragt Firefox weitere Berechtigungen an, um uns zu erlauben den Referrer-Header zu verändern.",
+    "description": "Information text about permission request"
   }
 }
