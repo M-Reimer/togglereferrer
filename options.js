@@ -30,9 +30,12 @@ function init() {
   });
 
   // Spoofing info contains HTML
-  let spoofing_info = browser.i18n.getMessage("spoofing_info");
-  spoofing_info = spoofing_info.replace("<a>", "<a href=\"https://github.com/M-Reimer/togglereferrer/blob/master/spoofing.js#L19\">");
-  document.getElementById("spoofing_info").innerHTML = spoofing_info;
+  const spoofing_info = browser.i18n.getMessage("spoofing_info");
+  if (spoofing_info.match(/^([^<]*)<a>([^<]+)<\/a>(.*)$/)) {
+    document.getElementById("spoofing_info_before").textContent = RegExp.$1;
+    document.getElementById("spoofing_info_link").textContent = RegExp.$2;
+    document.getElementById("spoofing_info_after").textContent = RegExp.$3;
+  }
 
   loadOptions();
   checkSpoofing.addEventListener("change", checkSpoofingChanged);
