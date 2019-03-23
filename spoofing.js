@@ -60,6 +60,14 @@ function CreateSpoofedReferrer(URL) {
     // No images on www.pixiv.net without referrer
     case "i.pximg.net":
       return "https://www.pixiv.net/";
+
+    // "CodePen requires a referrer to render this..."
+    case "s.codepen.io":
+      return "https://codepen.io/";
+
+    // JSFiddle result is broken without referrer
+    case "fiddle.jshell.net":
+      return "https://jsfiddle.net/";
   }
 }
 
