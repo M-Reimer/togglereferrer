@@ -68,6 +68,11 @@ function CreateSpoofedReferrer(URL) {
     // JSFiddle result is broken without referrer
     case "fiddle.jshell.net":
       return "https://jsfiddle.net/";
+
+    // "Endless spinning" spinner on userstyles.org
+    case "userstyles.org":
+      if (URL.pathname.startsWith("/api/"))
+        return "https://userstyles.org/";
   }
 }
 
