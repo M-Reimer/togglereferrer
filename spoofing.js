@@ -20,6 +20,7 @@
 // Feel free to request more websites as long as the following rules are met:
 // - Only simple cases will be added here! No "super-complex" rules!
 // - Only for "big" websites. For small ones: Ask webmaster to fix his site!
+// - No rules for (bad made) sites that use the referrer for CSRF protection.
 function CreateSpoofedReferrer(URL) {
 //  console.log("URL: " + URL.href);
 //  console.log("Host: " + URL.host);
@@ -27,7 +28,7 @@ function CreateSpoofedReferrer(URL) {
 // More properties: https://developer.mozilla.org/en-US/docs/Web/API/URL
 
   switch (URL.host) {
-    // The mobile version of the aliexpress doesn't find any articles if
+    // The mobile version of aliexpress doesn't find any articles if
     // no referrer is sent.
     case "m.aliexpress.com":
     case "m.de.aliexpress.com":
