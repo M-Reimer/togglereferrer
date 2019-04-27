@@ -28,7 +28,7 @@ async function ToolbarButtonClicked() {
 async function UpdateBadge() {
   const value = (await browser.privacy.websites.referrersEnabled.get({})).value;
   const badgetext = value ? "!" : "";
-  const title = "Toggle Referrer (" +
+  const title = "Referrer (" +
       browser.i18n.getMessage(value ? "title_enabled" : "title_disabled") +
       ")";
 
