@@ -21,13 +21,13 @@
 // - Only simple cases will be added here! No "super-complex" rules!
 // - Only for "big" websites. For small ones: Ask webmaster to fix his site!
 // - No rules for (bad made) sites that use the referrer for CSRF protection.
-function CreateSpoofedReferrer(URL) {
-//  console.log("URL: " + URL.href);
-//  console.log("Host: " + URL.host);
-//  console.log("Path: " + URL.pathname);
+function CreateSpoofedReferrer(url) {
+//  console.log("URL: " + url.href);
+//  console.log("Host: " + url.host);
+//  console.log("Path: " + url.pathname);
 // More properties: https://developer.mozilla.org/en-US/docs/Web/API/URL
 
-  switch (URL.host) {
+  switch (url.host) {
     // The mobile version of aliexpress doesn't find any articles if
     // no referrer is sent.
     case "m.aliexpress.com":
@@ -46,7 +46,7 @@ function CreateSpoofedReferrer(URL) {
     case "m.vi.aliexpress.com":
     case "m.pl.aliexpress.com":
     case "m.ar.aliexpress.com":
-      return "https://" + URL.host + "/";
+      return "https://" + url.host + "/";
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113998.html
     case "a.tile.openstreetmap.org":
@@ -72,7 +72,7 @@ function CreateSpoofedReferrer(URL) {
 
     // "Endless spinning" spinner on userstyles.org
     case "userstyles.org":
-      if (URL.pathname.startsWith("/api/"))
+      if (url.pathname.startsWith("/api/"))
         return "https://userstyles.org/";
   }
 }
