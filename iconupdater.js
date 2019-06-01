@@ -1,5 +1,5 @@
 /*
-    Firefox addon "Undo Close Tab"
+    Firefox addon "Toggle Referrer"
     Copyright (C) 2019  Manuel Reimer <manuel.reimer@gmx.de>
 
     This program is free software: you can redistribute it and/or modify
@@ -71,6 +71,9 @@ const IconUpdater = {
   },
 
   Init: function(aDefaultImage) {
+    if (browser.browserAction.setIcon === undefined) // If on Android
+      return;
+
     this.default_image = aDefaultImage;
 
     // Register to "onUpdated" event, so we know when theme colors change.
