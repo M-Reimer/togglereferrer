@@ -48,3 +48,5 @@ browser.browserAction.onClicked.addListener(ToolbarButtonClicked);
 
 // Update badge for the first time
 UpdateBadge();
+
+IconUpdater.Init("icons/togglereferrer.svg");
