@@ -74,6 +74,11 @@ function CreateSpoofedReferrer(url) {
     case "userstyles.org":
       if (url.pathname.startsWith("/api/"))
         return "https://userstyles.org/";
+
+    // "Data Tables warning" in Arch Linux ARM packages browser
+    case "archlinuxarm.org":
+      if (url.pathname == "/data/packages/list")
+        return "https://archlinuxarm.org/packages";
   }
 }
 
