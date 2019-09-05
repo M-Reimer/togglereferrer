@@ -70,6 +70,10 @@ function CreateSpoofedReferrer(url) {
     case "fiddle.jshell.net":
       return "https://jsfiddle.net/";
 
+    // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
+    case "fiddle.tinymce.com":
+      return "http://fiddle.tinymce.com/";
+
     // "Endless spinning" spinner on userstyles.org
     case "userstyles.org":
       if (url.pathname.startsWith("/api/"))
