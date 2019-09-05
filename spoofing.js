@@ -83,6 +83,14 @@ function CreateSpoofedReferrer(url) {
     case "archlinuxarm.org":
       if (url.pathname == "/data/packages/list")
         return "https://archlinuxarm.org/packages";
+
+    // swisscows.ch: The "Privacy safe WEB-search" which doesn't work with
+    // privacy safe settings
+    case "swisscows.ch":
+      if (url.pathname.startsWith("/api/") && url.searchParams.has("query"))
+        return "https://swisscows.ch" +
+               url.pathname.replace(/^\/api/, "") +
+               "?query=" + encodeURI(url.searchParams.get("query"));
   }
 }
 
