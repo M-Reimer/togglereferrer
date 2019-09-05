@@ -34,7 +34,7 @@ clean:
 
 # Starts local debug session
 run: icons/$(ADDON)-light.svg
-	web-ext run --bc
+	web-ext run --pref=devtools.browserconsole.contentMessages=true --bc
 
 # Starts debug session on connected Android device
 arun:
