@@ -24,5 +24,10 @@
   "permissions_info": {
     "message": "Wenn diese Funktion aktiviert wird, dann fragt Firefox weitere Berechtigungen an, um uns zu erlauben den Referrer-Header zu verändern.",
     "description": "Information text about permission request"
+  },
+
+  "reset_shortcuts_button": {
+    "message": "Tastenkombination zurücksetzen",
+    "description": "Label for the keyboard shortcut reset button"
   }
 }

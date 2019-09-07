@@ -24,5 +24,10 @@
   "permissions_info": {
     "message": "If you opt in to this feature, then additional permissions are requested by Firefox to allow us to modify the referrer header.",
     "description": "Information text about permission request"
+  },
+
+  "reset_shortcuts_button": {
+    "message": "Reset keyboard shortcut",
+    "description": "Label for the keyboard shortcut reset button"
   }
 }
