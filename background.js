@@ -39,7 +39,18 @@ async function UpdateBadge() {
   UpdateSpoofStatus();
 }
 
-  // Get sure our badge background is red.
+// Handles auto disable of referrer
+async function DoAutoDisable() {
+  // If the user enabled referrer res
+  const prefs = await browser.storage.local.get();
+  const autodisable = prefs.autodisable || false;
+  if (autodisable) {
+    await browser.privacy.websites.referrersEnabled.set({value: false});
+    await UpdateBadge();
+  }
+}
+
+// Get sure our badge background is red.
 if (browser.browserAction.setBadgeBackgroundColor !== undefined) // Not Android
   browser.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
 
@@ -48,5 +59,8 @@ browser.browserAction.onClicked.addListener(ToolbarButtonClicked);
 
 // Update badge for the first time
 UpdateBadge();
+
+// Diable Referrer if the user enabled auto disabling
+DoAutoDisable();
 
 IconUpdater.Init("icons/togglereferrer.svg");

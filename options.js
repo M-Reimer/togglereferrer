@@ -1,4 +1,5 @@
 const checkSpoofing = document.getElementById("spoofing_checkbox");
+const checkAutoDisable = document.getElementById("autodisable_checkbox");
 
 // If the user checks the checkbox, then trigger a permission request.
 // If the user denies the request, then switch the checkbox back to "unchecked".
@@ -20,9 +21,21 @@ async function checkSpoofingChanged(e) {
   browser.extension.getBackgroundPage().UpdateSpoofStatus();
 }
 
+async function CheckboxChanged(e) {
+  if (e.target.id.match(/([a-z_]+)_checkbox/)) {
+    let pref = RegExp.$1;
+    let params = {};
+    params[pref] = e.target.checked;
+    await browser.storage.local.set(params);
+  }
+}
+
 function init() {
   // Text only translation
   [
+    "general_headline",
+    "autodisable_label",
+    "spoofing_headline",
     "spoofing_label",
     "permissions_info",
     "reset_shortcuts_button"
@@ -40,6 +53,7 @@ function init() {
 
   loadOptions();
   checkSpoofing.addEventListener("change", checkSpoofingChanged);
+  checkAutoDisable.addEventListener("change", CheckboxChanged);
 
   // Init shortcut reset button
   ResetShortcuts.Init();
@@ -58,6 +72,10 @@ function init() {
 
 function loadOptions() {
   checkSpoofing.checked = (browser.webRequest !== undefined)
+
+  browser.storage.local.get().then((result) => {
+    checkAutoDisable.checked = result.autodisable || false;
+  });
 }
 
 init();

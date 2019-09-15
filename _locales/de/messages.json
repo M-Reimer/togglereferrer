@@ -13,6 +13,23 @@
     "description": "Text displayed in the title if referrer is OFF."
   },
 
+  "general_headline": {
+    "message": "Allgemeine Einstellungen",
+    "description": "Headline for the general settings in option page"
+  },
+  "autodisable_label": {
+    "message": "Beim Browser-Start den Referrer automatisch deaktivieren",
+    "description": "Label for the automatic referrer disable toggle"
+  },
+  "reset_shortcuts_button": {
+    "message": "Tastenkombination zurücksetzen",
+    "description": "Label for the keyboard shortcut reset button"
+  },
+
+  "spoofing_headline": {
+    "message": "Referrer Spoofing",
+    "description": "Headline for the spoofing section in option page"
+  },
   "spoofing_label": {
     "message": "Optionale Referrer-Spoofing Funktion",
     "description": "Label for the spoofing toggle in the options page"
@@ -24,10 +41,5 @@
   "permissions_info": {
     "message": "Wenn diese Funktion aktiviert wird, dann fragt Firefox weitere Berechtigungen an, um uns zu erlauben den Referrer-Header zu verändern.",
     "description": "Information text about permission request"
-  },
-
-  "reset_shortcuts_button": {
-    "message": "Tastenkombination zurücksetzen",
-    "description": "Label for the keyboard shortcut reset button"
   }
 }
