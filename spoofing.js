@@ -21,7 +21,7 @@
 // - Only simple cases will be added here! No "super-complex" rules!
 // - Only for "big" websites. For small ones: Ask webmaster to fix his site!
 // - No rules for (bad made) sites that use the referrer for CSRF protection.
-function CreateSpoofedReferrer(url) {
+function CreateSpoofedReferrer(url, origin) {
 //  console.log("URL: " + url.href);
 //  console.log("Host: " + url.host);
 //  console.log("Path: " + url.pathname);
@@ -91,6 +91,13 @@ function CreateSpoofedReferrer(url) {
         return "https://swisscows.ch" +
                url.pathname.replace(/^\/api/, "") +
                "?query=" + encodeURI(url.searchParams.get("query"));
+
+    // This prevents the captcha request when logging into Amazon without
+    // referrer enabled. We do an origin check for security.
+    case "www.amazon.de":
+      if (url.pathname == "/ap/signin" && url.host == origin.host)
+        return "https://www.amazon.de/"
+      return false;
   }
 }
 
@@ -103,7 +110,7 @@ function CreateSpoofedReferrer(url) {
 
 // Header rewrite handler. Rewrites "Referer".
 function RewriteReferrerHeader(e) {
-  const referrer = CreateSpoofedReferrer(new URL(e.url));
+  const referrer = CreateSpoofedReferrer(new URL(e.url), new URL(e.originUrl));
   if (referrer) {
     let found = false;
     e.requestHeaders.forEach(function(header){
