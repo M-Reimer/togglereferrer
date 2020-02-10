@@ -98,8 +98,9 @@ function CreateSpoofedReferrer(url, origin) {
     // This prevents the captcha request when logging into Amazon without
     // referrer enabled. We do an origin check for security.
     case "www.amazon.de":
+    case "www.amazon.com":
       if (url.pathname == "/ap/signin" && url.host == origin.host)
-        return "https://www.amazon.de/"
+        return "https://" + url.host + "/"
       return false;
   }
 }
