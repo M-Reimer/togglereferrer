@@ -78,11 +78,13 @@ function CreateSpoofedReferrer(url, origin) {
     case "userstyles.org":
       if (url.pathname.startsWith("/api/"))
         return "https://userstyles.org/";
+      return false;
 
     // "Data Tables warning" in Arch Linux ARM packages browser
     case "archlinuxarm.org":
       if (url.pathname == "/data/packages/list")
         return "https://archlinuxarm.org/packages";
+      return false;
 
     // swisscows.ch: The "Privacy safe WEB-search" which doesn't work with
     // privacy safe settings
@@ -91,6 +93,7 @@ function CreateSpoofedReferrer(url, origin) {
         return "https://swisscows.ch" +
                url.pathname.replace(/^\/api/, "") +
                "?query=" + encodeURI(url.searchParams.get("query"));
+      return false;
 
     // This prevents the captcha request when logging into Amazon without
     // referrer enabled. We do an origin check for security.
