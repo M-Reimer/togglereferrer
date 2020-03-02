@@ -103,6 +103,10 @@ function CreateSpoofedReferrer(url, origin) {
       if (url.pathname == "/ap/signin" && url.host == origin.host)
         return "https://" + url.host + "/"
       return false;
+
+    // No way to log in to twitter without referrer.
+    case "twitter.com":
+      return (origin.host == "twitter.com") && "https://twitter.com/";
   }
 }
 
