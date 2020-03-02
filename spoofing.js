@@ -69,11 +69,11 @@ function CreateSpoofedReferrer(url, origin) {
 
     // JSFiddle result is broken without referrer
     case "fiddle.jshell.net":
-      return "https://jsfiddle.net/";
+      return (origin.host == "jsfiddle.net") && "https://jsfiddle.net/";
 
     // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
     case "fiddle.tinymce.com":
-      return "http://fiddle.tinymce.com/";
+      return (origin.host == "fiddle.tinymce.com") && "http://fiddle.tinymce.com/";
 
     // "Endless spinning" spinner on userstyles.org
     case "userstyles.org":
