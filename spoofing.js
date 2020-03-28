@@ -73,7 +73,7 @@ function CreateSpoofedReferrer(url, origin) {
 
     // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
     case "fiddle.tinymce.com":
-      return (origin.host == "fiddle.tinymce.com") && "http://fiddle.tinymce.com/";
+      return (origin.host == url.host) && "http://fiddle.tinymce.com/";
 
     // "Endless spinning" spinner on userstyles.org
     case "userstyles.org":
@@ -81,10 +81,12 @@ function CreateSpoofedReferrer(url, origin) {
         return "https://userstyles.org/";
       return false;
 
-    // "Data Tables warning" in Arch Linux ARM packages browser
+    // "Data Tables warning" in Arch Linux ARM packages browser and mirror list
     case "archlinuxarm.org":
       if (url.pathname == "/data/packages/list")
         return "https://archlinuxarm.org/packages";
+      if (url.pathname == "/data/mirrors/list")
+        return "https://archlinuxarm.org/about/mirrors";
       return false;
 
     // swisscows.ch: The "Privacy safe WEB-search" which doesn't work with
@@ -106,7 +108,11 @@ function CreateSpoofedReferrer(url, origin) {
 
     // No way to log in to twitter without referrer.
     case "twitter.com":
-      return (origin.host == "twitter.com") && "https://twitter.com/";
+      return (origin.host == url.host) && "https://twitter.com/";
+
+    // Referrer based XMP check on login.launchpad.net. Do origin check!
+    case "login.launchpad.net":
+      return (origin.host == url.host) && "https://login.launchpad.net/";
   }
 }
 
