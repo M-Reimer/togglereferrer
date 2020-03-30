@@ -110,9 +110,13 @@ function CreateSpoofedReferrer(url, origin) {
     case "twitter.com":
       return (origin.host == url.host) && "https://twitter.com/";
 
-    // Referrer based XMP check on login.launchpad.net. Do origin check!
+    // Referrer based XMP check on launchpad.net. Do origin check!
+    case "launchpad.net":
     case "login.launchpad.net":
-      return (origin.host == url.host) && "https://login.launchpad.net/";
+    case "bugs.launchpad.net":
+    case "answers.launchpad.net":
+    case "translations.launchpad.net":
+      return (origin.host == url.host) && "https://" + url.host + "/";
   }
 }
 
