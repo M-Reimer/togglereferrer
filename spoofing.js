@@ -46,7 +46,7 @@ function CreateSpoofedReferrer(url, origin) {
     case "m.vi.aliexpress.com":
     case "m.pl.aliexpress.com":
     case "m.ar.aliexpress.com":
-      return "https://" + url.host + "/";
+      return (origin.host == url.host) && "https://" + url.host + "/";
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113998.html
     case "a.tile.openstreetmap.org":
