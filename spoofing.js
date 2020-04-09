@@ -109,14 +109,6 @@ function CreateSpoofedReferrer(url, origin) {
     // No way to log in to twitter without referrer.
     case "twitter.com":
       return (origin.host == url.host) && "https://twitter.com/";
-
-    // Referrer based XMP check on launchpad.net. Do origin check!
-    case "launchpad.net":
-    case "login.launchpad.net":
-    case "bugs.launchpad.net":
-    case "answers.launchpad.net":
-    case "translations.launchpad.net":
-      return (origin.host == url.host) && "https://" + url.host + "/";
   }
 }
 
@@ -129,16 +121,35 @@ function CreateSpoofedReferrer(url, origin) {
 
 // Header rewrite handler. Rewrites "Referer".
 function RewriteReferrerHeader(e) {
-  const referrer = CreateSpoofedReferrer(new URL(e.url), new URL(e.originUrl));
+  // Check for specific rules first
+  let referrer = CreateSpoofedReferrer(new URL(e.url), new URL(e.originUrl));
+
+  // Helper for the following code to be used with "find"
+  function findheader(name) {
+    return function(header) {
+      return header.name.toLowerCase() == name
+    };
+  }
+
+  // Current Firefox versions support an privacy improved header called "Origin"
+  // which is meant to be used for CSRF protection.
+  // This header is only sent in very limited cases. Whenever the browser
+  // decides to send one, we duplicate the "Origin" header over to "Referer".
+  //
+  // This "mass unlocks" many websites where the "Referer" header is used for
+  // CSRF protection
+  if (!referrer) {
+    const originheader = e.requestHeaders.find(findheader("origin"));
+    if (originheader)
+      referrer = originheader.value + "/"
+  }
+
+  // If we found a suitable spoofing value, then add this as "Referer" header
   if (referrer) {
-    let found = false;
-    e.requestHeaders.forEach(function(header){
-      if (header.name.toLowerCase() == "referer") {
-        header.value = referrer;
-        found = true;
-      }
-    });
-    if (!found)
+    const refererheader = e.requestHeaders.find(findheader("referer"));
+    if (refererheader)
+      refererheader.value = referrer;
+    else
       e.requestHeaders.push({"name": "Referer", "value": referrer});
   }
   return {requestHeaders: e.requestHeaders};
