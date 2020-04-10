@@ -27,6 +27,11 @@ function CreateSpoofedReferrer(url, origin) {
 //  console.log("Path: " + url.pathname);
 // More properties: https://developer.mozilla.org/en-US/docs/Web/API/URL
 
+  // For a "same origin" request, create a referrer with just the origin host
+  function SameOriginHost() {
+    return (origin.host === url.host) && url.protocol + "//" + url.host + "/";
+  }
+
   switch (url.host) {
     // The mobile version of aliexpress doesn't find any articles if
     // no referrer is sent.
@@ -46,7 +51,7 @@ function CreateSpoofedReferrer(url, origin) {
     case "m.vi.aliexpress.com":
     case "m.pl.aliexpress.com":
     case "m.ar.aliexpress.com":
-      return (origin.host == url.host) && "https://" + url.host + "/";
+      return SameOriginHost();
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113998.html
     case "a.tile.openstreetmap.org":
@@ -73,13 +78,11 @@ function CreateSpoofedReferrer(url, origin) {
 
     // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
     case "fiddle.tinymce.com":
-      return (origin.host == url.host) && "http://fiddle.tinymce.com/";
+      return SameOriginHost();
 
     // "Endless spinning" spinner on userstyles.org
     case "userstyles.org":
-      if (url.pathname.startsWith("/api/"))
-        return "https://userstyles.org/";
-      return false;
+      return (url.pathname.startsWith("/api/")) && SameOriginHost();
 
     // "Data Tables warning" in Arch Linux ARM packages browser and mirror list
     case "archlinuxarm.org":
@@ -102,13 +105,11 @@ function CreateSpoofedReferrer(url, origin) {
     // referrer enabled. We do an origin check for security.
     case "www.amazon.de":
     case "www.amazon.com":
-      if (url.pathname == "/ap/signin" && url.host == origin.host)
-        return "https://" + url.host + "/"
-      return false;
+      return (url.pathname == "/ap/signin") && SameOriginHost();
 
     // No way to log in to twitter without referrer.
     case "twitter.com":
-      return (origin.host == url.host) && "https://twitter.com/";
+      return SameOriginHost();
   }
 }
 
