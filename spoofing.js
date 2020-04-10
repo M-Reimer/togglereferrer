@@ -136,8 +136,9 @@ function RewriteReferrerHeader(e) {
   // This header is only sent in very limited cases. Whenever the browser
   // decides to send one, we duplicate the "Origin" header over to "Referer".
   //
-  // This "mass unlocks" many websites where the "Referer" header is used for
-  // CSRF protection
+  // This should "mass unlock" many websites where the "Referer" header is used
+  // for CSRF protection. Especially those where framework designers decide to
+  // enforce the Referrer even after long discussion *cough* django *cough*.
   if (!referrer) {
     const originheader = e.requestHeaders.find(findheader("origin"));
     if (originheader)
