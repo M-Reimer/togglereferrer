@@ -110,6 +110,9 @@ function CreateSpoofedReferrer(url, origin) {
     // No way to log in to twitter without referrer.
     case "twitter.com":
       return SameOriginHost();
+
+    case "www.ebay-kleinanzeigen.de":
+      return SameOriginHost();
   }
 }
 
