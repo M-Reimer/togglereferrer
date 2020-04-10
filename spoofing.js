@@ -59,7 +59,7 @@ function CreateSpoofedReferrer(url, origin) {
     case "m.ar.aliexpress.com":
       return SameOriginHost();
 
-    // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113998.html
+    // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113989.html
     case "a.tile.openstreetmap.org":
     case "b.tile.openstreetmap.org":
     case "c.tile.openstreetmap.org":
@@ -117,6 +117,7 @@ function CreateSpoofedReferrer(url, origin) {
     case "twitter.com":
       return SameOriginHost();
 
+    // "Reload loop" when trying to login on ebay-kleinanzeigen.
     case "www.ebay-kleinanzeigen.de":
       return SameOriginHost();
   }
