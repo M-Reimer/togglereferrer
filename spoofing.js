@@ -29,7 +29,13 @@ function CreateSpoofedReferrer(url, origin) {
 
   // For a "same origin" request, create a referrer with just the origin host
   function SameOriginHost() {
-    return (origin.host === url.host) && url.protocol + "//" + url.host + "/";
+    return (origin.host === url.host) &&
+      origin.protocol + "//" + origin.host + "/";
+  }
+  // Allow (white list) the given origin host to be used as referrer
+  function OriginHostIf(originhost) {
+    return (origin.host === originhost) &&
+      origin.protocol + "//" + origin.host + "/";
   }
 
   switch (url.host) {
@@ -70,11 +76,11 @@ function CreateSpoofedReferrer(url, origin) {
     // "CodePen requires a referrer to render this..."
     case "s.codepen.io":
     case "cdpn.io":
-      return (origin.host == "codepen.io") && "https://codepen.io/";
+      return OriginHostIf("codepen.io");
 
     // JSFiddle result is broken without referrer
     case "fiddle.jshell.net":
-      return (origin.host == "jsfiddle.net") && "https://jsfiddle.net/";
+      return OriginHostIf("jsfiddle.net");
 
     // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
     case "fiddle.tinymce.com":
