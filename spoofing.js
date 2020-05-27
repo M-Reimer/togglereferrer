@@ -63,6 +63,7 @@ function CreateSpoofedReferrer(url, origin) {
     case "a.tile.openstreetmap.org":
     case "b.tile.openstreetmap.org":
     case "c.tile.openstreetmap.org":
+    case "tile.openstreetmap.org":
       return "https://www.openstreetmap.org/";
 
     // No access to datasheets if referrer is off
