@@ -38,89 +38,91 @@ function CreateSpoofedReferrer(url, origin) {
       origin.protocol + "//" + origin.host + "/";
   }
 
-  switch (url.host) {
-    // The mobile version of aliexpress doesn't find any articles if
-    // no referrer is sent.
-    case "m.aliexpress.com":
-    case "m.de.aliexpress.com":
-    case "m.ru.aliexpress.com":
-    case "m.pt.aliexpress.com":
-    case "m.es.aliexpress.com":
-    case "m.id.aliexpress.com":
-    case "m.it.aliexpress.com":
-    case "m.fr.aliexpress.com":
-    case "m.nl.aliexpress.com":
-    case "m.tr.aliexpress.com":
-    case "m.ja.aliexpress.com":
-    case "m.th.aliexpress.com":
-    case "m.ko.aliexpress.com":
-    case "m.vi.aliexpress.com":
-    case "m.pl.aliexpress.com":
-    case "m.ar.aliexpress.com":
+  // Spoofing rules follow. First array element is always the "matching rule"
+  // which can be a String, Array of strings or RegExp.
+  const rules = [
+    // Several issues on aliexpress (no login, no search results, ...)
+    [/\.aliexpress\.com$/, () => {
       return SameOriginHost();
+    }],
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113989.html
-    case "a.tile.openstreetmap.org":
-    case "b.tile.openstreetmap.org":
-    case "c.tile.openstreetmap.org":
-    case "tile.openstreetmap.org":
+    [/tile\.openstreetmap\.org$/, () => {
       return "https://www.openstreetmap.org/";
+    }],
 
     // No access to datasheets if referrer is off
-    case "pdf1.alldatasheet.com":
+    ["pdf1.alldatasheet.com", () => {
       return "http://www.alldatasheet.com/datasheet-pdf/pdf";
+    }],
 
     // No images on www.pixiv.net without referrer
-    case "i.pximg.net":
+    ["i.pximg.net", () => {
       return "https://www.pixiv.net/";
+    }],
 
     // "CodePen requires a referrer to render this..."
-    case "s.codepen.io":
-    case "cdpn.io":
+    [["s.codepen.io", "cdpn.io"], () => {
       return OriginHostIf("codepen.io");
+    }],
 
     // JSFiddle result is broken without referrer
-    case "fiddle.jshell.net":
+    ["fiddle.jshell.net", () => {
       return OriginHostIf("jsfiddle.net");
+    }],
 
     // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
-    case "fiddle.tinymce.com":
+    ["fiddle.tinymce.com", () => {
       return SameOriginHost();
+    }],
 
     // "Endless spinning" spinner on userstyles.org
-    case "userstyles.org":
+    ["userstyles.org", () => {
       return (url.pathname.startsWith("/api/")) && SameOriginHost();
+    }],
 
     // "Data Tables warning" in Arch Linux ARM packages browser and mirror list
-    case "archlinuxarm.org":
+    ["archlinuxarm.org", () => {
       if (url.pathname == "/data/packages/list")
         return "https://archlinuxarm.org/packages";
       if (url.pathname == "/data/mirrors/list")
         return "https://archlinuxarm.org/about/mirrors";
-      return false;
+    }],
 
     // swisscows.ch: The "Privacy safe WEB-search" which doesn't work with
     // privacy safe settings
-    case "swisscows.ch":
+    ["swisscows.ch", () => {
       if (url.pathname.startsWith("/api/") && url.searchParams.has("query"))
         return "https://swisscows.ch" +
                url.pathname.replace(/^\/api/, "") +
                "?query=" + encodeURI(url.searchParams.get("query"));
-      return false;
+    }],
 
     // This prevents the captcha request when logging into Amazon without
     // referrer enabled. We do an origin check for security.
-    case "www.amazon.de":
-    case "www.amazon.com":
+    [/^www\.amazon\.(de|com)$/, () => {
       return (url.pathname == "/ap/signin") && SameOriginHost();
+    }],
 
     // No way to log in to twitter without referrer.
-    case "twitter.com":
+    ["twitter.com", () => {
       return SameOriginHost();
+    }],
 
     // "Reload loop" when trying to login on ebay-kleinanzeigen.
-    case "www.ebay-kleinanzeigen.de":
+    ["www.ebay-kleinanzeigen.de", () => {
       return SameOriginHost();
+    }]
+  ];
+
+  // Match each rule against the URL's host and return the spoofing result
+  for (let rule of rules) {
+    const type = rule[0].constructor.name;
+
+    if ((type == "RegExp" && url.host.match(rule[0])) ||
+        (type == "String" && url.host == rule[0]) ||
+        (type == "Array"  && rule[0].includes(url.host)))
+      return rule[1]();
   }
 }
 
