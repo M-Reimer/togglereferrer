@@ -33,9 +33,16 @@ function CreateSpoofedReferrer(url, origin) {
       origin.protocol + "//" + origin.host + "/";
   }
   // Allow (white list) the given origin host to be used as referrer
+  // Parameter may be String or RegExp representative of valid host(s)
   function OriginHostIf(originhost) {
-    return (origin.host === originhost) &&
-      origin.protocol + "//" + origin.host + "/";
+    const type = originhost.constructor.name;
+    if (type == "String" && origin.host !== originhost)
+      return false;
+    else if (type == "RegExp" && !origin.host.match(originhost))
+      return false;
+    else
+      return false;
+    return origin.protocol + "//" + origin.host + "/";
   }
 
   // Spoofing rules follow. First array element is always the "matching rule"
@@ -43,7 +50,7 @@ function CreateSpoofedReferrer(url, origin) {
   const rules = [
     // Several issues on aliexpress (no login, no search results, ...)
     [/\.aliexpress\.com$/, () => {
-      return SameOriginHost();
+      return OriginHostIf(/^[a-z]+\.aliexpress\.com$/);
     }],
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113989.html
