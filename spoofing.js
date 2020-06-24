@@ -51,6 +51,14 @@ function CreateSpoofedReferrer(url, origin) {
       return "https://www.openstreetmap.org/";
     }],
 
+    // Really silly referrer check functionality in FluxBB. Won't work with
+    // just the same origin host but needs a valid pathname, too...
+    [["forum.openstreetmap.org", "bbs.archlinux.org"], () => {
+      if (SameOriginHost() &&
+          ["/post.php", "/profile.php"].includes(origin.pathname))
+        return origin.protocol + "//" + origin.host + origin.pathname;
+    }],
+
     // No access to datasheets if referrer is off
     ["pdf1.alldatasheet.com", () => {
       return "http://www.alldatasheet.com/datasheet-pdf/pdf";
