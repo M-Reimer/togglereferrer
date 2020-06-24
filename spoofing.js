@@ -144,7 +144,10 @@ function CreateSpoofedReferrer(url, origin) {
 // Header rewrite handler. Rewrites "Referer".
 function RewriteReferrerHeader(e) {
   // Check for specific rules first
-  let referrer = CreateSpoofedReferrer(new URL(e.url), new URL(e.originUrl));
+  let referrer = CreateSpoofedReferrer(
+    new URL(e.url),
+    new URL(e.originUrl || "http://no-origin.invalid/")
+  );
 
   // Helper for the following code to be used with "find"
   function findheader(name) {
