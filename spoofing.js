@@ -20,7 +20,6 @@
 // Feel free to request more websites as long as the following rules are met:
 // - Only simple cases will be added here! No "super-complex" rules!
 // - Only for "big" websites. For small ones: Ask webmaster to fix his site!
-// - No rules for (bad made) sites that use the referrer for CSRF protection.
 function CreateSpoofedReferrer(url, origin) {
 //  console.log("URL: " + url.href);
 //  console.log("Host: " + url.host);
