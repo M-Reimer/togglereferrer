@@ -18,7 +18,7 @@ async function checkSpoofingChanged(e) {
   else
     await browser.permissions.remove(permissions);
 
-  browser.extension.getBackgroundPage().UpdateSpoofStatus();
+  await browser.runtime.sendMessage({type: "OptionsChanged"});
 }
 
 async function CheckboxChanged(e) {
@@ -27,6 +27,7 @@ async function CheckboxChanged(e) {
     let params = {};
     params[pref] = e.target.checked;
     await browser.storage.local.set(params);
+    await browser.runtime.sendMessage({type: "OptionsChanged"});
   }
 }
 
@@ -77,5 +78,11 @@ function loadOptions() {
     checkAutoDisable.checked = result.autodisable || false;
   });
 }
+
+// Register event listener to receive option update notifications
+browser.runtime.onMessage.addListener((data, sender) => {
+  if (data.type == "OptionsChanged")
+    loadOptions();
+});
 
 init();

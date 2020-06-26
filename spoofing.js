@@ -214,3 +214,9 @@ async function UpdateSpoofStatus() {
       obsh.removeListener(RewriteReferrerHeader);
   }
 }
+
+// Register event listener to receive option update notifications
+browser.runtime.onMessage.addListener((data, sender) => {
+  if (data.type == "OptionsChanged")
+    UpdateSpoofStatus();
+});
