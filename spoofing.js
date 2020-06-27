@@ -144,13 +144,11 @@ class RuleHelper {
   // Parameter may be String or RegExp representative of valid host(s)
   OriginHostIf(originhost) {
     const type = originhost.constructor.name;
-    if (type == "String" && this.origin.host !== originhost)
-      return false;
-    else if (type == "RegExp" && !this.origin.host.match(originhost))
-      return false;
-    else
-      return false;
-    return this.origin.protocol + "//" + this.origin.host + "/";
+    return (
+             (type == "String" && this.origin.host === originhost) ||
+             (type == "RegExp" && this.origin.host.match(originhost))
+           ) &&
+      this.origin.protocol + "//" + this.origin.host + "/";
   }
 }
 
