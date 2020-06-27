@@ -111,6 +111,11 @@ function CreateSpoofedReferrer(url, origin) {
     // "Reload loop" when trying to login on ebay-kleinanzeigen.
     ["www.ebay-kleinanzeigen.de", () => {
       return h.SameOriginHost();
+    }],
+
+    // No SVG downloads on freesvg.org
+    ["freesvg.org", () => {
+      return url.pathname.startsWith("/download/") && "https://freesvg.org/";
     }]
   ];
 
