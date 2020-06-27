@@ -26,30 +26,15 @@ function CreateSpoofedReferrer(url, origin) {
 //  console.log("Path: " + url.pathname);
 // More properties: https://developer.mozilla.org/en-US/docs/Web/API/URL
 
-  // For a "same origin" request, create a referrer with just the origin host
-  function SameOriginHost() {
-    return (origin.host === url.host) &&
-      origin.protocol + "//" + origin.host + "/";
-  }
-  // Allow (white list) the given origin host to be used as referrer
-  // Parameter may be String or RegExp representative of valid host(s)
-  function OriginHostIf(originhost) {
-    const type = originhost.constructor.name;
-    if (type == "String" && origin.host !== originhost)
-      return false;
-    else if (type == "RegExp" && !origin.host.match(originhost))
-      return false;
-    else
-      return false;
-    return origin.protocol + "//" + origin.host + "/";
-  }
+  // Helper used for common result strategies
+  const h = new RuleHelper(url, origin);
 
   // Spoofing rules follow. First array element is always the "matching rule"
   // which can be a String, Array of strings or RegExp.
   const rules = [
     // Several issues on aliexpress (no login, no search results, ...)
     [/\.aliexpress\.com$/, () => {
-      return OriginHostIf(/^[a-z]+\.aliexpress\.com$/);
+      return h.OriginHostIf(/^[a-z]+\.aliexpress\.com$/);
     }],
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113989.html
@@ -60,7 +45,7 @@ function CreateSpoofedReferrer(url, origin) {
     // Really silly referrer check functionality in FluxBB. Won't work with
     // just the same origin host but needs a valid pathname, too...
     [["forum.openstreetmap.org", "bbs.archlinux.org"], () => {
-      if (SameOriginHost() &&
+      if (h.SameOriginHost() &&
           ["/post.php", "/profile.php"].includes(origin.pathname))
         return origin.protocol + "//" + origin.host + origin.pathname;
     }],
@@ -77,22 +62,22 @@ function CreateSpoofedReferrer(url, origin) {
 
     // "CodePen requires a referrer to render this..."
     [["s.codepen.io", "cdpn.io"], () => {
-      return OriginHostIf("codepen.io");
+      return h.OriginHostIf("codepen.io");
     }],
 
     // JSFiddle result is broken without referrer
     ["fiddle.jshell.net", () => {
-      return OriginHostIf("jsfiddle.net");
+      return h.OriginHostIf("jsfiddle.net");
     }],
 
     // TinyMCE's own "fiddle" tool. "Error: 42" without referrer
     ["fiddle.tinymce.com", () => {
-      return SameOriginHost();
+      return h.SameOriginHost();
     }],
 
     // "Endless spinning" spinner on userstyles.org
     ["userstyles.org", () => {
-      return (url.pathname.startsWith("/api/")) && SameOriginHost();
+      return (url.pathname.startsWith("/api/")) && h.SameOriginHost();
     }],
 
     // "Data Tables warning" in Arch Linux ARM packages browser and mirror list
@@ -115,17 +100,17 @@ function CreateSpoofedReferrer(url, origin) {
     // This prevents the captcha request when logging into Amazon without
     // referrer enabled. We do an origin check for security.
     [/^www\.amazon\.(de|com)$/, () => {
-      return (url.pathname == "/ap/signin") && SameOriginHost();
+      return (url.pathname == "/ap/signin") && h.SameOriginHost();
     }],
 
     // No way to log in to twitter without referrer.
     ["twitter.com", () => {
-      return SameOriginHost();
+      return h.SameOriginHost();
     }],
 
     // "Reload loop" when trying to login on ebay-kleinanzeigen.
     ["www.ebay-kleinanzeigen.de", () => {
-      return SameOriginHost();
+      return h.SameOriginHost();
     }]
   ];
 
@@ -141,6 +126,33 @@ function CreateSpoofedReferrer(url, origin) {
 }
 
 
+// Helper class used in the rules above.
+// Contains some common referrer result strategies.
+class RuleHelper {
+  constructor(url, origin) {
+    this.url = url;
+    this.origin = origin;
+  }
+
+  // For a "same origin" request, create a referrer with just the origin host
+  SameOriginHost() {
+    return (this.origin.host === this.url.host) &&
+      this.origin.protocol + "//" + this.origin.host + "/";
+  }
+
+  // Allow (white list) the given origin host to be used as referrer
+  // Parameter may be String or RegExp representative of valid host(s)
+  OriginHostIf(originhost) {
+    const type = originhost.constructor.name;
+    if (type == "String" && this.origin.host !== originhost)
+      return false;
+    else if (type == "RegExp" && !this.origin.host.match(originhost))
+      return false;
+    else
+      return false;
+    return this.origin.protocol + "//" + this.origin.host + "/";
+  }
+}
 
 //
 // The actual Referrer spoofing "backend" code follows
