@@ -116,6 +116,11 @@ function CreateSpoofedReferrer(url, origin) {
     // No SVG downloads on freesvg.org
     ["freesvg.org", () => {
       return url.pathname.startsWith("/download/") && "https://freesvg.org/";
+    }],
+
+    // No downloads without referrer on amd.com
+    ["drivers.amd.com", () => {
+      return h.OriginHostIf(/\.amd\.com$/);
     }]
   ];
 
