@@ -34,7 +34,7 @@ function CreateSpoofedReferrer(url, origin) {
   const rules = [
     // Several issues on aliexpress (no login, no search results, ...)
     [/\.aliexpress\.com$/, () => {
-      return h.OriginHostIf(/^[a-z]+\.aliexpress\.com$/);
+      return h.OriginHostIf(/\.aliexpress\.com$/);
     }],
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113989.html
