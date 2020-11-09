@@ -128,7 +128,7 @@ function CreateSpoofedReferrer(url, origin) {
 
     // At least some videos not playing without referrer
     [/^v\d+-web\.tiktok\.com$/, () => {
-      return "https://www.tiktok.com/";
+      return h.OriginHostIf("www.tiktok.com");
     }]
   ];
 
