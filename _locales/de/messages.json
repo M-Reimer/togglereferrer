@@ -21,10 +21,6 @@
     "message": "Beim Browser-Start den Referrer automatisch deaktivieren",
     "description": "Label for the automatic referrer disable toggle"
   },
-  "reset_shortcuts_button": {
-    "message": "Tastenkombination zurücksetzen",
-    "description": "Label for the keyboard shortcut reset button"
-  },
 
   "spoofing_headline": {
     "message": "Referrer Spoofing",

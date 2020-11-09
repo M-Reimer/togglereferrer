@@ -38,8 +38,7 @@ function init() {
     "autodisable_label",
     "spoofing_headline",
     "spoofing_label",
-    "permissions_info",
-    "reset_shortcuts_button"
+    "permissions_info"
   ].forEach((id) => {
     document.querySelector("#" + id).textContent = browser.i18n.getMessage(id);
   });
@@ -55,9 +54,6 @@ function init() {
   loadOptions();
   checkSpoofing.addEventListener("change", checkSpoofingChanged);
   checkAutoDisable.addEventListener("change", CheckboxChanged);
-
-  // Init shortcut reset button
-  ResetShortcuts.Init();
 
   // "Common web APIs" for opening new pages don't work here on Firefox for
   // Android. So we hook onto the <a> elements and open the pages via
