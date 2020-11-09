@@ -51,8 +51,11 @@ function CreateSpoofedReferrer(url, origin) {
     }],
 
     // No access to datasheets if referrer is off
-    ["pdf1.alldatasheet.com", () => {
-      return "http://www.alldatasheet.com/datasheet-pdf/pdf";
+    [/^pdf1\.alldatasheet\.(com|net)$/, () => {
+      return origin.protocol + "//" + origin.host + "/datasheet-pdf/pdf";
+    }],
+    [/^htmlimg2\.alldatasheet\.(com|net)$/, () => {
+      return origin.protocol + "//" + origin.host + origin.pathname.replace("htmldatasheet", "html-marking").replace(".png", ".html");
     }],
 
     // No images on www.pixiv.net without referrer
