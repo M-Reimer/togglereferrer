@@ -124,6 +124,11 @@ function CreateSpoofedReferrer(url, origin) {
     // No downloads without referrer on amd.com
     ["drivers.amd.com", () => {
       return h.OriginHostIf(/\.amd\.com$/);
+    }],
+
+    // At least some videos not playing without referrer
+    [/^v\d+-web\.tiktok\.com$/, () => {
+      return "https://www.tiktok.com/";
     }]
   ];
 
