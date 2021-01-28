@@ -129,6 +129,11 @@ function CreateSpoofedReferrer(url, origin) {
     // At least some videos not playing without referrer
     [/^v\d+-web\.tiktok\.com$/, () => {
       return h.OriginHostIf("www.tiktok.com");
+    }],
+
+    // Fail with status: 498 No Reason Phrase
+    ["web.archive.org", () => {
+      return h.SameOriginHost();
     }]
   ];
 
