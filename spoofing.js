@@ -134,6 +134,11 @@ function CreateSpoofedReferrer(url, origin) {
     // Fail with status: 498 No Reason Phrase
     ["web.archive.org", () => {
       return h.SameOriginHost();
+    }],
+
+    // "Access denied" to some API requests without referrer
+    ["getpocket.com", () => {
+      return h.SameOriginHost();
     }]
   ];
 
