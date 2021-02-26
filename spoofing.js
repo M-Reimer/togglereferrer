@@ -52,10 +52,13 @@ function CreateSpoofedReferrer(url, origin) {
 
     // No access to datasheets if referrer is off
     [/^pdf1\.alldatasheet\.(com|net)$/, () => {
-      return origin.protocol + "//" + origin.host + "/datasheet-pdf/pdf";
+      return "https://" + url.host + "/";
     }],
     [/^htmlimg2\.alldatasheet\.(com|net)$/, () => {
-      return origin.protocol + "//" + origin.host + origin.pathname.replace("htmldatasheet", "html-marking").replace(".png", ".html");
+      return "https://" + url.host.replace("htmlimg2", "html") + "/";
+    }],
+    [/^html\.alldatasheet\.(com|net)$/, () => {
+      return "https://" + url.host + "/html-pdf/";
     }],
 
     // No images on www.pixiv.net without referrer
