@@ -94,15 +94,6 @@ function CreateSpoofedReferrer(url, origin) {
         return "https://archlinuxarm.org/about/mirrors";
     }],
 
-    // swisscows.ch: The "Privacy safe WEB-search" which doesn't work with
-    // privacy safe settings
-    ["swisscows.ch", () => {
-      if (url.pathname.startsWith("/api/") && url.searchParams.has("query"))
-        return "https://swisscows.ch" +
-               url.pathname.replace(/^\/api/, "") +
-               "?query=" + encodeURI(url.searchParams.get("query"));
-    }],
-
     // This prevents the captcha request when logging into Amazon without
     // referrer enabled. We do an origin check for security.
     [/^www\.amazon\.(de|com)$/, () => {
