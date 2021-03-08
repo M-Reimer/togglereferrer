@@ -43,6 +43,10 @@ function init() {
     document.querySelector("#" + id).textContent = browser.i18n.getMessage(id);
   });
 
+  // Android workaround
+  if (browser.runtime.id == "{6e3c0ae1-d568-499b-a4b7-db798718d64a}")
+    checkSpoofing.disabled = true;
+
   // Spoofing info contains HTML
   const spoofing_info = browser.i18n.getMessage("spoofing_info");
   if (spoofing_info.match(/^([^<]*)<a>([^<]+)<\/a>(.*)$/)) {

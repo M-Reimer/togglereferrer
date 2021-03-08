@@ -20,6 +20,24 @@ ANDROIDDEVICE = $(shell adb devices | cut -s -d$$'\t' -f1 | head -n1)
 
 trunk: $(ADDON)-trunk.xpi
 
+# Workaround for https://github.com/mozilla-mobile/fenix/issues/16912
+# We can't request permissions dynamically, so the actual idea of an optional
+# spoofing feature, which requests its permissions if the user wants to use it,
+# does currently not work on Android. To work this around, this target creates
+# a "patched duplicate" of my Add-on with spoofing always enabled.
+release-android: release
+# Extract created XPI into a temporary location
+	rm -rf android-temp
+	mkdir -p android-temp
+	unzip $(ADDON)-$(VERSION).xpi -d android-temp
+# Edit in a new Add-on UUID
+	sed -ri 's/^(\s+"id":) .*$$/\1 "{6e3c0ae1-d568-499b-a4b7-db798718d64a}",/' android-temp/manifest.json
+# Merge "optional_permissions" with "permissions"
+	sed -rzi 's/\n\s+\],\n\n\s+"optional_permissions": \[/,/' android-temp/manifest.json
+# Create a new XPI from the results
+	rm -f $(ADDON)-android-$(VERSION).xpi
+	cd android-temp && zip -r9 ../$(ADDON)-android-$(VERSION).xpi *
+
 release: $(ADDON)-$(VERSION).xpi
 
 %.xpi: $(FILES) icons/$(ADDON)-light.svg
@@ -41,5 +59,5 @@ arun:
 	@if [ -z "$(ANDROIDDEVICE)" ]; then \
 	  echo "No android devices found!"; \
 	else \
-	  web-ext run --target=firefox-android --android-device="$(ANDROIDDEVICE)"; \
+	  web-ext run --target=firefox-android --firefox-apk=org.mozilla.fenix --android-device="$(ANDROIDDEVICE)"; \
 	fi
