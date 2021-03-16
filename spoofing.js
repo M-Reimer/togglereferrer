@@ -48,7 +48,8 @@ function CreateSpoofedReferrer(url, origin) {
       if (h.SameOriginHost() &&
           ["/post.php",
            "/profile.php",
-           "/viewtopic.php"].includes(origin.pathname))
+           "/viewtopic.php",
+           "/edit.php"].includes(origin.pathname))
         return origin.protocol + "//" + origin.host + origin.pathname;
     }],
 
