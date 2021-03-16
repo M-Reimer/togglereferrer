@@ -46,7 +46,9 @@ function CreateSpoofedReferrer(url, origin) {
     // just the same origin host but needs a valid pathname, too...
     [["forum.openstreetmap.org", "bbs.archlinux.org"], () => {
       if (h.SameOriginHost() &&
-          ["/post.php", "/profile.php"].includes(origin.pathname))
+          ["/post.php",
+           "/profile.php",
+           "/viewtopic.php"].includes(origin.pathname))
         return origin.protocol + "//" + origin.host + origin.pathname;
     }],
 
