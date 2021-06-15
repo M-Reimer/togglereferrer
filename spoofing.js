@@ -97,10 +97,12 @@ function CreateSpoofedReferrer(url, origin) {
         return "https://archlinuxarm.org/about/mirrors";
     }],
 
-    // This prevents the captcha request when logging into Amazon without
-    // referrer enabled. We do an origin check for security.
+    // Amazon rules (so far only .de and .com)
+    // Sending referrer for "/ap/signin" prevents captcha when logging in
+    // The path "/gp/twister/" seems to be some API which needs a referrer
     [/^www\.amazon\.(de|com)$/, () => {
-      return (url.pathname == "/ap/signin") && h.SameOriginHost();
+      return (url.pathname == "/ap/signin" ||
+              url.pathname.startsWith("/gp/twister/")) && h.SameOriginHost();
     }],
 
     // No way to log in to twitter without referrer.
@@ -136,6 +138,16 @@ function CreateSpoofedReferrer(url, origin) {
     // "Access denied" to some API requests without referrer
     ["getpocket.com", () => {
       return h.SameOriginHost();
+    }],
+
+    // No "open link in new tab" on www.bing.com
+    ["www.bing.com", () => {
+      return (url.pathname == "/newtabredir") && h.SameOriginHost();
+    }],
+
+    // Silly deeplink protection on www.researchgate.net
+    ["www.researchgate.net", () => {
+      return url.pathname.endsWith("/download") && h.SameOriginHost();
     }]
   ];
 
