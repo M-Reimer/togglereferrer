@@ -145,7 +145,7 @@ function CreateSpoofedReferrer(url, origin) {
       return (url.pathname == "/newtabredir") && h.SameOriginHost();
     }],
 
-    // Silly deeplink protection on www.researchgate.net
+    // Deeplink protection on www.researchgate.net
     ["www.researchgate.net", () => {
       return url.pathname.endsWith("/download") && h.SameOriginHost();
     }]
