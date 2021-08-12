@@ -148,6 +148,11 @@ function CreateSpoofedReferrer(url, origin) {
     // Deeplink protection on www.researchgate.net
     ["www.researchgate.net", () => {
       return url.pathname.endsWith("/download") && h.SameOriginHost();
+    }],
+
+    // Referrer check on the search feature of drimble.nl
+    ["drimble.nl", () => {
+      return (url.pathname == "/autovliegtuig.php") && "https://drimble.nl/";
     }]
   ];
 
