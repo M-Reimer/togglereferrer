@@ -38,8 +38,13 @@ function CreateSpoofedReferrer(url, origin) {
     }],
 
     // https://lists.openstreetmap.org/pipermail/talk-de/2017-April/113989.html
-    [/tile\.openstreetmap\.org$/, () => {
+    ["tile.openstreetmap.org", () => {
       return "https://www.openstreetmap.org/";
+    }],
+    // Since around october 2021 "[abc].tile.openstreetmap.org" send status
+    // 418 ("I'm a teapot") if Referer is "https://www.openstreetmap.org/".
+    [/tile\.openstreetmap\.org$/, () => {
+      return "https://" + url.host + "/";
     }],
 
     // Really silly referrer check functionality in FluxBB. Won't work with
