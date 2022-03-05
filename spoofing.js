@@ -158,6 +158,24 @@ function CreateSpoofedReferrer(url, origin) {
     // Referrer check on the search feature of drimble.nl
     ["drimble.nl", () => {
       return (url.pathname == "/autovliegtuig.php") && "https://drimble.nl/";
+    }],
+
+    // Often no embeds without referrer (Video unavailable)
+    ["www.youtube.com", () => {
+      return (url.pathname.startsWith("/embed/")) && "https://www.youtube.com/";
+    }],
+
+    // Switching to "Split diff" fails on GitHub
+    ["github.com", () => {
+      if (h.SameOriginHost() && url.pathname == "/users/diffview")
+        return origin.protocol + "//" + origin.host + origin.pathname;
+    }],
+
+    // AUR login fails with 400 - Bad request
+    // https://gitlab.archlinux.org/archlinux/aurweb/-/issues/325
+    ["aur.archlinux.org", () => {
+      if (h.SameOriginHost() && url.pathname == "/login")
+        return h.SameOriginHost() + "login";
     }]
   ];
 
