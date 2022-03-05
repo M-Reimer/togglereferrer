@@ -5,21 +5,22 @@
   </head>
   <body>
     <form>
-      <h1 id="general_headline">General settings</h1>
+      <h1 data-i18n-id="general_headline">General settings</h1>
       <input type="checkbox" id="autodisable_checkbox"/>
-      <label for="autodisable_checkbox" id="autodisable_label">Automatically disable referrer on browser startup</label>
+      <label for="autodisable_checkbox" data-i18n-id="autodisable_label">Automatically disable referrer on browser startup</label>
 
-      <h1 id="spoofing_headline">Referrer spoofing</h1>
+      <h1 data-i18n-id="spoofing_headline">Referrer spoofing</h1>
       <input type="checkbox" id="spoofing_checkbox"/>
-      <label for="spoofing_checkbox" id="spoofing_label">Optional referrer spoofing feature</label>
+      <label for="spoofing_checkbox" data-i18n-id="spoofing_label">Optional referrer spoofing feature</label>
       <p id="spoofing_info">
         <span id="spoofing_info_before">The optional referrer spoofing feature sends a spoofed referrer to </span>
         <a id="spoofing_info_link" href="https://github.com/M-Reimer/togglereferrer/blob/master/spoofing.js#L19">some problematic servers</a>
         <span id="spoofing_info_after"> in case you disabled referrer sending (no red flag next to toolbar button).</span>
       </p>
-      <p id="permissions_info">If you opt in to this feature, then additional permissions are requested by Firefox to allow us to modify the referrer header.
+      <p data-i18n-id="permissions_info">If you opt in to this feature, then additional permissions are requested by Firefox to allow us to modify the referrer header.
       </p>
     </form>
+    <script src="utils/html-i18n.js"></script>
     <script src="options.js"></script>
   </body>
 </html>

@@ -32,17 +32,6 @@ async function CheckboxChanged(e) {
 }
 
 function init() {
-  // Text only translation
-  [
-    "general_headline",
-    "autodisable_label",
-    "spoofing_headline",
-    "spoofing_label",
-    "permissions_info"
-  ].forEach((id) => {
-    document.querySelector("#" + id).textContent = browser.i18n.getMessage(id);
-  });
-
   // Android workaround
   if (browser.runtime.id == "{6e3c0ae1-d568-499b-a4b7-db798718d64a}")
     checkSpoofing.disabled = true;
