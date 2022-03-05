@@ -19,7 +19,7 @@
   },
 
   "background": {
-    "scripts": ["iconupdater.js", "background.js", "spoofing.js"]
+    "scripts": ["utils/iconupdater.js", "background.js", "spoofing.js"]
   },
 
   "browser_action": {
