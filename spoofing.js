@@ -176,6 +176,13 @@ function CreateSpoofedReferrer(url, origin) {
     ["aur.archlinux.org", () => {
       if (h.SameOriginHost() && url.pathname == "/login")
         return h.SameOriginHost() + "login";
+    }],
+
+    // Bad "browser chack" on gitlab.com
+    // Seems to redirect "over" some URL with a token and checks referrer
+    ["gitlab.com", () => {
+      if (h.SameOriginHost() && url.pathname.startsWith("/users/sign_in"))
+        return origin.protocol + "//" + origin.host + origin.pathname;
     }]
   ];
 
