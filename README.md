@@ -7,6 +7,6 @@ AMO: https://addons.mozilla.org/firefox/addon/togglereferrer/
 
 Localization: https://lusito.github.io/web-ext-translator/?gh=https://github.com/M-Reimer/togglereferrer/
 
-Hacking: Do a [temporary install](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox).
+Hacking: Do a [temporary install](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/).
 
 Building: [make](https://www.gnu.org/software/make/)
