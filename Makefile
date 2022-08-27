@@ -56,7 +56,7 @@ clean:
 
 # Starts local debug session
 run: icons/$(ADDON)-light.svg
-	web-ext run --pref=devtools.browserconsole.contentMessages=true --bc
+	web-ext run --pref=network.http.sendRefererHeader=0 --bc
 
 # Starts debug session on connected Android device
 arun:
