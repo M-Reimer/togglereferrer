@@ -29,6 +29,16 @@ function CreateSpoofedReferrer(url, origin) {
   // Helper used for common result strategies
   const h = new RuleHelper(url, origin);
 
+  // Special case that we can not catch based on the host name (as this is
+  // used by many hosts). This makes us pass Cloudflare browser check.
+  // Unfortunately they have added referrer check to some of their endpoints.
+  if (url.pathname.startsWith("/cdn-cgi/challenge-platform/") ||
+      url.searchParams.has("__cf_chl_f_tk")) {
+    if (h.SameOriginHost()) {
+      return origin.protocol + "//" + origin.host + origin.pathname;
+    }
+  }
+
   // Spoofing rules follow. First array element is always the "matching rule"
   // which can be a String, Array of strings or RegExp.
   const rules = [
