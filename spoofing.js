@@ -188,7 +188,7 @@ function CreateSpoofedReferrer(url, origin) {
         return h.SameOriginHost() + "login";
     }],
 
-    // Bad "browser chack" on gitlab.com
+    // Bad "browser check" on gitlab.com
     // Seems to redirect "over" some URL with a token and checks referrer
     ["gitlab.com", () => {
       if (h.SameOriginHost() && url.pathname.startsWith("/users/sign_in"))
