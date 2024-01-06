@@ -11,6 +11,7 @@ FILES = manifest.json \
         options.css \
         utils/iconupdater.js \
         utils/html-i18n.js \
+        utils/options.css \
         $(wildcard _locales/*/messages.json) \
         $(wildcard icons/*.svg)
 

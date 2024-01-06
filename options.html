@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="options.css">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="utils/options.css"/>
+    <link rel="stylesheet" href="options.css"/>
   </head>
   <body>
     <form>
       <h1 data-i18n-id="general_headline">General settings</h1>
-      <input type="checkbox" id="autodisable_checkbox"/>
-      <label for="autodisable_checkbox" data-i18n-id="autodisable_label">Automatically disable referrer on browser startup</label>
+      <div class="checkbox">
+        <input type="checkbox" id="autodisable_checkbox"/>
+        <label for="autodisable_checkbox" data-i18n-id="autodisable_label">Automatically disable referrer on browser startup</label>
+      </div>
 
       <h1 data-i18n-id="spoofing_headline">Referrer spoofing</h1>
-      <input type="checkbox" id="spoofing_checkbox"/>
-      <label for="spoofing_checkbox" data-i18n-id="spoofing_label">Optional referrer spoofing feature</label>
+      <div class="checkbox">
+        <input type="checkbox" id="spoofing_checkbox"/>
+        <label for="spoofing_checkbox" data-i18n-id="spoofing_label">Optional referrer spoofing feature</label>
+      </div>
       <p id="spoofing_info">
         <span id="spoofing_info_before">The optional referrer spoofing feature sends a spoofed referrer to </span>
         <a id="spoofing_info_link" href="https://github.com/M-Reimer/togglereferrer/blob/master/spoofing.js#L19">some problematic servers</a>
