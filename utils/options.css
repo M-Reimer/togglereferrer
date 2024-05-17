@@ -23,12 +23,14 @@
 :root {
   --page-bg-color: #fff;
   --page-fg-color: #15141a;
+  --link-color: #0060df;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --page-bg-color: #23222b;
     --page-fg-color: #fbfbfe;
+    --link-color: #00ddff;
   }
 }
 
@@ -36,6 +38,10 @@ body {
   background-color: var(--page-bg-color);
   color: var(--page-fg-color);
   min-height: 250px; /* This fills the space in the add-ons manager */
+}
+
+a {
+  color: var(--link-color);
 }
 
 /* Style for a checkbox with label, grouped by a <div> */
