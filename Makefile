@@ -8,7 +8,6 @@ FILES = manifest.json \
         spoofing.js \
         options.html \
         options.js \
-        options.css \
         utils/iconupdater.js \
         utils/html-i18n.js \
         utils/options.css \
