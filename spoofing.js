@@ -188,6 +188,12 @@ function CreateSpoofedReferrer(url, origin) {
     ["gitlab.com", () => {
       if (h.SameOriginHost() && url.pathname.startsWith("/users/sign_in"))
         return origin.protocol + "//" + origin.host + origin.pathname;
+    }],
+
+    // This fixes bidding on ebay.de
+    ["www.ebay.de", () => {
+      if (h.SameOriginHost() && url.pathname.startsWith("/bfl/placebid"))
+        return origin.protocol + "//" + origin.host + origin.pathname;
     }]
   ];
 
