@@ -214,6 +214,7 @@ class RuleHelper {
   // For a "same origin" request, create a referrer with just the origin host
   SameOriginHost() {
     return (this.origin.host === this.url.host) &&
+           (this.origin.protocol === this.url.protocol) &&
       this.origin.protocol + "//" + this.origin.host + "/";
   }
 
@@ -225,6 +226,7 @@ class RuleHelper {
              (type == "String" && this.origin.host === originhost) ||
              (type == "RegExp" && this.origin.host.match(originhost))
            ) &&
+           (this.origin.protocol === this.url.protocol) &&
       this.origin.protocol + "//" + this.origin.host + "/";
   }
 }
