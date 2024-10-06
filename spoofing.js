@@ -59,7 +59,7 @@ function CreateSpoofedReferrer(url, origin) {
 
     // Really silly referrer check functionality in FluxBB. Won't work with
     // just the same origin host but needs a valid pathname, too...
-    [["forum.openstreetmap.org", "bbs.archlinux.org"], () => {
+    ["bbs.archlinux.org", () => {
       if (h.SameOriginHost() &&
           ["/post.php",
            "/profile.php",
