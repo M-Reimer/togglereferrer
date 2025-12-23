@@ -165,9 +165,14 @@ function CreateSpoofedReferrer(url, origin) {
       return (url.pathname == "/autovliegtuig.php") && "https://drimble.nl/";
     }],
 
-    // Often no embeds without referrer (Video unavailable)
+    // No YouTube embeds without referrer (Video unavailable)
+    // Plan here is to not run into "Embedding not allowed" issues too often
+    // by guessing some origin which may be allowed to embed everything.
+    // Obvious choice "www.youtube.com" does not work (Error: 152 - 4).
+    // So we are using "www.google.com" for now.
+    // If this does not work, we maybe have to use the origin host in future.
     ["www.youtube.com", () => {
-      return (url.pathname.startsWith("/embed/")) && "https://www.youtube.com/";
+      return (url.pathname.startsWith("/embed/")) && "https://www.google.com/";
     }],
 
     // Switching to "Split diff" fails on GitHub
