@@ -170,7 +170,7 @@ function CreateSpoofedReferrer(url, origin) {
     // Obvious choice "www.youtube.com" does not work (Error: 152 - 4).
     // So we are using "www.google.com" for now.
     // If this does not work, we maybe have to use the origin host in future.
-    ["www.youtube.com", () => {
+    [["www.youtube.com", "www.youtube-nocookie.com"]  , () => {
       return (url.pathname.startsWith("/embed/")) && "https://www.google.com/";
     }],
 
