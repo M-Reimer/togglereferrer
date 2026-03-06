@@ -1,6 +1,6 @@
 /*
     Firefox addon "Toggle Referrer"
-    Copyright (C) 2020  Manuel Reimer <manuel.reimer@gmx.de>
+    Copyright (C) 2026  Manuel Reimer <manuel.reimer@gmx.de>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -113,11 +113,10 @@ function CreateSpoofedReferrer(url, origin) {
     }],
 
     // Amazon rules (so far only .de and .com)
-    // Sending referrer for "/ap/signin" prevents captcha when logging in
-    // The path "/gp/twister/" seems to be some API which needs a referrer
+    // Seems like Amazon has some kind of "Anti-Bot-Rules" in place.
+    // Effectively the whole site is broken without referrer, now.
     [/^www\.amazon\.(de|com)$/, () => {
-      return (url.pathname == "/ap/signin" ||
-              url.pathname.startsWith("/gp/twister/")) && h.SameOriginHost();
+      return h.SameOriginHost();
     }],
 
     // No way to log in to twitter without referrer.
